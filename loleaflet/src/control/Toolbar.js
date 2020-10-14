@@ -177,6 +177,25 @@ L.Map.include({
 				break;
 			}
 		}
+		if (command.startsWith('.uno:SpellOnline')) {
+			var map = this;
+			var val = map['stateChangeHandler'].getItemValue('.uno:SpellOnline');
+
+			// proceed if the toggle button is pressed
+			if (json === undefined || json === null) {
+				var state = true;
+				switch (val) {
+				case 'true':
+					state = false; // because it is toggle, state has to be the opposite
+					break;
+				case 'false':
+					state = true;
+					break;
+				}
+				if (window.isLocalStorageAllowed)
+					window.localStorage.setItem('SpellOnline', state);
+			}
+		}
 
 		if (this.dialog.hasOpenedDialog())
 			this.dialog.blinkOpenDialog();
